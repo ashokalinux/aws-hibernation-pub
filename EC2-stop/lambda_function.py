@@ -1,5 +1,5 @@
 #!/usr/bin/python
-# Purpose: Start all the instances having tag "Enviornment=dev" AND "Tenant=prod-dev"
+# Purpose: Start all the instances having tag "Enviornment=dev" AND "Tenant=prod-dev" or "hibernation=yes"
 # Ver 1.0
 # Tested for Python 2.7, 3.8
 # Author: Ashok Shelke
@@ -17,8 +17,8 @@ def lambda_handler(event, context):
     instancelst=[]
     reservations = ec2.describe_instances(
         Filters=[
-            {'Name': 'tag:Environment', 'Values': ['dev']},            
-            {'Name': 'tag:Tenant', 'Values': ['prod-dev']},
+#            {'Name': 'tag:Environment', 'Values': ['dev']},            
+            {'Name': 'tag:hibernation', 'Values': ['yes']},
             {'Name': 'instance-state-name', 'Values': ['running']}
         ]
     ).get(
